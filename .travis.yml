@@ -1,0 +1,24 @@
+services:
+  - docker
+
+before_install:
+  - docker build -t yashar1691/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true yashar1691/react-test npm run test
+
+after_success:
+  - docker build -t yashar1691/multi-client ./client
+  - docker build -t yashar1691/multi-nginx ./nginx
+  - docker build -t yashar1691/multi-server ./server
+  - docker build -t yashar1691/multi-worker ./worker
+
+  #Login to docker-cli
+  - echo "$DOCKER_PASSWORD" | docker login -u "DOCKER_ID" --password-stdin
+
+  #Push images to docker hub
+  - docker push yashar1691/multi-client
+  - docker push yashar1691/multi-nginx
+  - docker push yashar1691/multi-server
+  - docker push yashar1691/multi-worker
+  
