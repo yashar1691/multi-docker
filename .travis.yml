@@ -17,8 +17,8 @@ after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "DOCKER_ID" --password-stdin
 
   #Push images to docker hub
-  - docker push yashar1691/multi-client
-  - docker push yashar1691/multi-nginx
-  - docker push yashar1691/multi-server
-  - docker push yashar1691/multi-worker
+  - docker push yashar1691/multi-client:latest
+  - docker push yashar1691/multi-nginx:latest
+  - docker push yashar1691/multi-server:latest
+  - docker push yashar1691/multi-worker:latest
   
